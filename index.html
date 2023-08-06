@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>KML Click Capture Sample</title>
+    <style>
+      html,
+      body {
+        height: 500px;
+        padding: 0;
+        margin: 0;
+      }
+      #map {
+        height: 500px;
+        width: 100%;
+        overflow: hidden;
+        float: left;
+        border: thin solid #333;
+      }
+      #capture {
+        height: 500px;
+        width: 100%;
+        overflow: hidden;
+        float: left;
+        background-color: #ececfb;
+        border: thin solid #333;
+        border-left: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="info">&nbsp;</div>
+    <select id="districts">
+      <option value="الزهور">الزهور</option>
+      <option value="الرحاب">الرحاب</option>
+      <option value="التضامن">التضامن</option>
+      <option value="البساتين">البساتين</option>
+    </select>
+    <input
+      type="hidden"
+      id="divMapDistrictsDataJson"
+      value='[
+      {"ID":94863,"DefaultName":"معكال                ( مدينة الرياض )","MapKey":"معكال","VisitsCount":25,"SumOfRubbleVolume":3192},
+      {"ID":94869,"DefaultName":"وادي لبن ( مدينة الرياض )","MapKey":"وادي لبن","VisitsCount":0,"SumOfRubbleVolume":0},{"ID":94886,"DefaultName":"الجرادية             ( مدينة الرياض )","MapKey":"الجرادية","VisitsCount":61,"SumOfRubbleVolume":720},{"ID":94889,"DefaultName":"الوزارات             ( مدينة الرياض )","MapKey":"الوزارات","VisitsCount":16,"SumOfRubbleVolume":20205},{"ID":95195,"DefaultName":"ام سدرة ( المجمعه )","VisitsCount":30,"SumOfRubbleVolume":596120},{"ID":98133,"DefaultName":"الثليماء ( المذنب )","VisitsCount":39,"SumOfRubbleVolume":3720},{"ID":99823,"DefaultName":"الرائد ( بلقرن )","MapKey":"الرائد","VisitsCount":21,"SumOfRubbleVolume":730},{"ID":100076,"DefaultName":"الفاخرية ( تثليث )","MapKey":"الفاخرية","VisitsCount":13,"SumOfRubbleVolume":420},{"ID":100577,"DefaultName":"شرق الوسيطاء ( حائل )","VisitsCount":26,"SumOfRubbleVolume":6078},{"ID":100844,"DefaultName":"الدحوة ( أنبوان )","VisitsCount":2,"SumOfRubbleVolume":120},{"ID":100875,"DefaultName":"الهدية ( مراغان )","VisitsCount":83,"SumOfRubbleVolume":10500},{"ID":101057,"DefaultName":"النموذجية ( رفحاء )","MapKey":"النموذجية","VisitsCount":6,"SumOfRubbleVolume":400},{"ID":101067,"DefaultName":"الحزم ( محافظة المذنب )","VisitsCount":344,"SumOfRubbleVolume":116052},{"ID":101471,"DefaultName":"الزاهر ( ضمد )","MapKey":"الزاهر","VisitsCount":140,"SumOfRubbleVolume":915438},{"ID":102779,"DefaultName":"العوازم \/ العوده ( القريات )","VisitsCount":245,"SumOfRubbleVolume":542391},{"ID":103056,"DefaultName":"المربع ( خميس مشيط )","MapKey":"المربع","VisitsCount":101,"SumOfRubbleVolume":118332},{"ID":103060,"DefaultName":"ام السلم\/تندحة شعب العرقة  ( خميس مشيط )","VisitsCount":0,"SumOfRubbleVolume":0},{"ID":103124,"DefaultName":"وادي العمل\/سراة عبيدة  ( سراة عبيدة )","VisitsCount":29,"SumOfRubbleVolume":4327},{"ID":103550,"DefaultName":"السهباء  ( الخرج  )","MapKey":"السهباء","VisitsCount":1,"SumOfRubbleVolume":11021},{"ID":103617,"DefaultName":"الحائر ( مدينة الرياض )","MapKey":"الحائر","VisitsCount":150,"SumOfRubbleVolume":92764},{"ID":103644,"DefaultName":"مركز السحابين ( القصيم )","VisitsCount":125,"SumOfRubbleVolume":24862},{"ID":103715,"DefaultName":"صلاح الدين الايوبي ( مدينة الرياض )","VisitsCount":24,"SumOfRubbleVolume":2110},{"ID":103725,"DefaultName":"جامعة الملك سعود ( مدينة الرياض )","MapKey":"جامعة الملك سعود","VisitsCount":0,"SumOfRubbleVolume":0},{"ID":103793,"DefaultName":"الرس - المرقب ( مدينة الرياض )","VisitsCount":102,"SumOfRubbleVolume":25464},{"ID":103802,"DefaultName":"الأمير محمد بن سعد بن عبدالعزيز - حطين ( مدينة الرياض )","VisitsCount":288,"SumOfRubbleVolume":114455},{"ID":103832,"DefaultName":"عائشة بنت ابي بكر -ظهرة لبن ( مدينة الرياض )","VisitsCount":402,"SumOfRubbleVolume":911610},{"ID":103842,"DefaultName":"الملك فهد - منفوحة الجديدة ( مدينة الرياض )","VisitsCount":197,"SumOfRubbleVolume":60671},{"ID":103980,"DefaultName":"هبة الله الخزرجي ( مدينة الرياض )","VisitsCount":56,"SumOfRubbleVolume":92376},{"ID":104104,"DefaultName":"عكاظ ( مدينة الرياض )","MapKey":"عكاظ","VisitsCount":62,"SumOfRubbleVolume":38345},{"ID":104173,"DefaultName":"حي ديراب ( مدينة الرياض )","VisitsCount":51,"SumOfRubbleVolume":5837},{"ID":104216,"DefaultName":"عريض ( مدينة الرياض )","MapKey":"عريض","VisitsCount":143,"SumOfRubbleVolume":832165},{"ID":104333,"DefaultName":"صناعية المصفاة  ( مدينة الرياض )","VisitsCount":278,"SumOfRubbleVolume":250811},{"ID":104382,"DefaultName":"حي المصانع  ( المجمعة  )","VisitsCount":22,"SumOfRubbleVolume":16305},{"ID":104405,"DefaultName":"حي الملز ( مدينة الرياض )","VisitsCount":116,"SumOfRubbleVolume":175701},{"ID":104410,"DefaultName":"حي الضباط ( مدينة الرياض )","VisitsCount":42,"SumOfRubbleVolume":45662},{"ID":104441,"DefaultName":"خلف مبنى تدريب الدفاع المدني ( تبوك )","VisitsCount":31,"SumOfRubbleVolume":31595},{"ID":104444,"DefaultName":"حي النظيم ( تبوك )","VisitsCount":286,"SumOfRubbleVolume":394403},{"ID":104539,"DefaultName":"حي الازدهار ( سكاكا )","VisitsCount":41,"SumOfRubbleVolume":1905},{"ID":104545,"DefaultName":"التضامن ( جدة )","MapKey":"التضامن","VisitsCount":153,"SumOfRubbleVolume":325644},{"ID":104584,"DefaultName":"حي المنار ( الدمام )","VisitsCount":120,"SumOfRubbleVolume":4610},{"ID":104689,"DefaultName":"حي الجزيرة ( مدينة الرياض )","VisitsCount":44,"SumOfRubbleVolume":419134},{"ID":104712,"DefaultName":"حي بدر ( مدينة الرياض )","VisitsCount":144,"SumOfRubbleVolume":4689},{"ID":104716,"DefaultName":"بيشة طريق بيشة سبت العلايا  ( وادي بن هشبل )","VisitsCount":170,"SumOfRubbleVolume":1102345},{"ID":104721,"DefaultName":"المناخ، ( مدينة الرياض )","VisitsCount":310,"SumOfRubbleVolume":141328},{"ID":104995,"DefaultName":"الديرة ( العلا )","MapKey":"الديرة","VisitsCount":134,"SumOfRubbleVolume":50878},{"ID":105026,"DefaultName":"البندر ( مركز ينبع النخل )","VisitsCount":171,"SumOfRubbleVolume":1440},{"ID":105027,"DefaultName":"المجد ( مركز ينبع النخل )","MapKey":"المجد","VisitsCount":146,"SumOfRubbleVolume":235416},{"ID":105062,"DefaultName":"القدس  ( عرعر )","MapKey":"القدس","VisitsCount":123,"SumOfRubbleVolume":34044},{"ID":105103,"DefaultName":"المنصورة ( المبرز )","VisitsCount":126,"SumOfRubbleVolume":80314},{"ID":105113,"DefaultName":"الرمال ( عنك )","MapKey":"الرمال","VisitsCount":764,"SumOfRubbleVolume":1540690},{"ID":105146,"DefaultName":"الخليج  ( الجبيل الصناعية  )","MapKey":"الخليج","VisitsCount":238,"SumOfRubbleVolume":63938},{"ID":105229,"DefaultName":"حي المشاعل ( مدينة الرياض )","VisitsCount":189,"SumOfRubbleVolume":280632},{"ID":105303,"DefaultName":"حي الشعلة ( الدمام )","VisitsCount":133,"SumOfRubbleVolume":789623},{"ID":105335,"DefaultName":"حي البساتين ( جدة )","VisitsCount":163,"SumOfRubbleVolume":32546},{"ID":105354,"DefaultName":"الدانة ( القطيف )","MapKey":"الدانة","VisitsCount":235,"SumOfRubbleVolume":423561},{"ID":105394,"DefaultName":"الفرسان ( الدمام )","MapKey":"الفرسان","VisitsCount":178,"SumOfRubbleVolume":54234},{"ID":105415,"DefaultName":"حي طويق ( مدينة الرياض )","VisitsCount":660,"SumOfRubbleVolume":1193226},{"ID":105605,"DefaultName":"حي السعادة ( تبوك )","VisitsCount":194,"SumOfRubbleVolume":13291},{"ID":105619,"DefaultName":"بنبان ( مدينة الرياض )","MapKey":"بنبان","VisitsCount":253,"SumOfRubbleVolume":1118067},{"ID":105627,"DefaultName":"المنطقة الصناعية الجديدة ( تبوك )","VisitsCount":154,"SumOfRubbleVolume":7080},{"ID":105645,"DefaultName":"النور ( جازان )","MapKey":"النور","VisitsCount":66,"SumOfRubbleVolume":180879},{"ID":105677,"DefaultName":"حي الجنادرية ( محايل عسير )","VisitsCount":123,"SumOfRubbleVolume":124535},{"ID":105679,"DefaultName":"حي المهدية  ( المذنب )","VisitsCount":1400,"SumOfRubbleVolume":1398416},{"ID":105718,"DefaultName":"حي الفيحاء صناعية الخير ( الدمام )","VisitsCount":116,"SumOfRubbleVolume":8397},{"ID":105730,"DefaultName":"حي المغرزات ( مدينة الرياض )","MapKey":"Elmograzat","VisitsCount":34,"SumOfRubbleVolume":850},{"ID":105736,"DefaultName":"المؤتمرات ( مدينة الرياض )","MapKey":"المؤتمرات","VisitsCount":13,"SumOfRubbleVolume":2500},{"ID":105754,"DefaultName":"حي اليرموك ( مدينة الرياض )","VisitsCount":240,"SumOfRubbleVolume":275927},{"ID":105774,"DefaultName":"حي الفيصلية الجنوبية ( تبوك )","VisitsCount":195,"SumOfRubbleVolume":643502},{"ID":105778,"DefaultName":"حي سلطانة ( تبوك )","VisitsCount":50,"SumOfRubbleVolume":780},{"ID":105783,"DefaultName":"حي قرطبة ( تبوك )","VisitsCount":266,"SumOfRubbleVolume":593829},{"ID":105786,"DefaultName":"حي العقيق ( عشيرة بالطائف )","VisitsCount":191,"SumOfRubbleVolume":320256},{"ID":105803,"DefaultName":"حي القادسية ( مدينة الرياض )","VisitsCount":237,"SumOfRubbleVolume":65600},{"ID":105812,"DefaultName":"حي عتيقة ( مدينة الرياض )","VisitsCount":58,"SumOfRubbleVolume":6068},{"ID":105821,"DefaultName":"حي ظهرة البديعة ( مدينة الرياض )","VisitsCount":142,"SumOfRubbleVolume":1670},{"ID":105829,"DefaultName":"سكيرينة ( مدينة الرياض )","MapKey":"سكيرينة","VisitsCount":22,"SumOfRubbleVolume":5462},{"ID":105830,"DefaultName":"حي العوالي ( مدينة الرياض )","VisitsCount":539,"SumOfRubbleVolume":27389},{"ID":105831,"DefaultName":"حي الدار البيضاء ( مدينة الرياض )","VisitsCount":170,"SumOfRubbleVolume":16894},{"ID":105837,"DefaultName":"حي المروج الثاني ( تبوك )","VisitsCount":35,"SumOfRubbleVolume":1600},{"ID":105851,"DefaultName":"حي المعذر الشمالي ( مدينة الرياض )","VisitsCount":25,"SumOfRubbleVolume":3317},{"ID":105869,"DefaultName":"نمار ( مدينة الرياض )","MapKey":"نمار","VisitsCount":103,"SumOfRubbleVolume":7824},{"ID":105875,"DefaultName":"حي شبرا ( مدينة الرياض )","VisitsCount":62,"SumOfRubbleVolume":550},{"ID":105886,"DefaultName":"حي النسيم الغربي ( مدينة الرياض )","VisitsCount":294,"SumOfRubbleVolume":4380},{"ID":105893,"DefaultName":"حي النسيم الشرقي ( مدينة الرياض )","VisitsCount":142,"SumOfRubbleVolume":4428},{"ID":105910,"DefaultName":"حي المونسية ( مدينة الرياض )","VisitsCount":427,"SumOfRubbleVolume":566817},{"ID":105912,"DefaultName":"حي اشبيلية ( مدينة الرياض )","VisitsCount":151,"SumOfRubbleVolume":979273},{"ID":105914,"DefaultName":"حي اليمامة ( مدينة الرياض )","VisitsCount":73,"SumOfRubbleVolume":26521},{"ID":105921,"DefaultName":"حي الزهرة ( مدينة الرياض )","VisitsCount":69,"SumOfRubbleVolume":490},{"ID":105937,"DefaultName":"حي الرفيعة ( مدينة الرياض )","VisitsCount":35,"SumOfRubbleVolume":943},{"ID":105947,"DefaultName":"حي الصناعية الخير  ( الدمام )","VisitsCount":544,"SumOfRubbleVolume":909334},{"ID":105967,"DefaultName":"حي الروضة ( جدة )","VisitsCount":147,"SumOfRubbleVolume":34854},{"ID":105971,"DefaultName":"العريجاء الغربية ( مدينة الرياض )","VisitsCount":225,"SumOfRubbleVolume":17895},{"ID":105975,"DefaultName":"الوسام  ( الدمام )","MapKey":"الوسام","VisitsCount":338,"SumOfRubbleVolume":536165},{"ID":105985,"DefaultName":"حي الخزامى ( حائل )","VisitsCount":0,"SumOfRubbleVolume":0},{"ID":105995,"DefaultName":"حي المعيزيلة ( مدينة الرياض )","VisitsCount":170,"SumOfRubbleVolume":100370},{"ID":105997,"DefaultName":"حي النفل ( مدينة الرياض )","VisitsCount":95,"SumOfRubbleVolume":25035},{"ID":106006,"DefaultName":"حي المرسلات ( جدة )","VisitsCount":21,"SumOfRubbleVolume":160},{"ID":106015,"DefaultName":"حي الناصرية ( مدينة الرياض )","VisitsCount":13,"SumOfRubbleVolume":2032},{"ID":106017,"DefaultName":"الوشام ( مدينة الرياض )","MapKey":"الوشام","VisitsCount":11,"SumOfRubbleVolume":375},{"ID":106018,"DefaultName":"عليشة ( مدينة الرياض )","MapKey":"عليشة","VisitsCount":14,"SumOfRubbleVolume":725},{"ID":106019,"DefaultName":"حي الشميسي ( مدينة الرياض )","VisitsCount":105,"SumOfRubbleVolume":14755},{"ID":106033,"DefaultName":"حي المروة ( جدة )","VisitsCount":64,"SumOfRubbleVolume":8363},{"ID":106034,"DefaultName":"الرابية، ( الدمام )","VisitsCount":175,"SumOfRubbleVolume":23654},{"ID":106036,"DefaultName":"السلاميه ( حوطة بني تميم )","VisitsCount":108,"SumOfRubbleVolume":2300},{"ID":106048,"DefaultName":"حي الفاروق ( جدة )","VisitsCount":260,"SumOfRubbleVolume":180459},{"ID":106055,"DefaultName":"الشفا ( عشيرة بالطائف )","MapKey":"الشفا","VisitsCount":166,"SumOfRubbleVolume":11800},{"ID":106066,"DefaultName":"حي ام سليم ( مدينة الرياض )","VisitsCount":18,"SumOfRubbleVolume":613},{"ID":106072,"DefaultName":"المحمدية ( جدة )","MapKey":"المحمدية","VisitsCount":33,"SumOfRubbleVolume":2500},{"ID":106074,"DefaultName":"حي الراية ( المدينة المنورة )","VisitsCount":123,"SumOfRubbleVolume":752346},{"ID":106075,"DefaultName":"حي احد ( مدينة الرياض )","VisitsCount":86,"SumOfRubbleVolume":23980},{"ID":106078,"DefaultName":"حي السويدي الغربي ( مدينة الرياض )","VisitsCount":207,"SumOfRubbleVolume":4056},{"ID":106080,"DefaultName":"حي الواحة ( خميس مشيط )","VisitsCount":39,"SumOfRubbleVolume":6760},{"ID":106081,"DefaultName":"المرجان ( جدة )","MapKey":"المرجان","VisitsCount":115,"SumOfRubbleVolume":152759},{"ID":106082,"DefaultName":"العزيزية ( أحد رفيدة )","MapKey":"العزيزية","VisitsCount":427,"SumOfRubbleVolume":12726},{"ID":106087,"DefaultName":"حي العريجاء الوسطى ( مدينة الرياض )","VisitsCount":60,"SumOfRubbleVolume":1090},{"ID":106091,"DefaultName":"حي النخيل ( تبوك )","VisitsCount":115,"SumOfRubbleVolume":11680},{"ID":106110,"DefaultName":"حي سيد الشهداء ( المدينة المنورة )","VisitsCount":57,"SumOfRubbleVolume":13052},{"ID":106129,"DefaultName":"حي الوادي ( مدينة الرياض )","VisitsCount":101,"SumOfRubbleVolume":39850},{"ID":106131,"DefaultName":"الملك عبد العزيز ( مدينة الرياض )","VisitsCount":7,"SumOfRubbleVolume":850},{"ID":106136,"DefaultName":"حي النزهة ( مدينة الرياض )","VisitsCount":26,"SumOfRubbleVolume":18600},{"ID":106145,"DefaultName":"حي العليا ( الخبر )","VisitsCount":33,"SumOfRubbleVolume":2789},{"ID":106148,"DefaultName":"حي الرحاب ( صبياء )","VisitsCount":190,"SumOfRubbleVolume":586677},{"ID":106153,"DefaultName":"حي الغدير ( مدينة الرياض )","VisitsCount":43,"SumOfRubbleVolume":2045},{"ID":106158,"DefaultName":"حي الصحافة ( مدينة الرياض )","VisitsCount":196,"SumOfRubbleVolume":40695},{"ID":106178,"DefaultName":"حي السد بعد الخالدية  ( خميس مشيط )","VisitsCount":97,"SumOfRubbleVolume":3947},{"ID":106191,"DefaultName":"حي السليمانية ( مدينة الرياض )","VisitsCount":52,"SumOfRubbleVolume":7530},{"ID":106208,"DefaultName":"حي الرحمانية ( جدة )","VisitsCount":19,"SumOfRubbleVolume":1360},{"ID":106209,"DefaultName":"حي الروابي ( القريات )","VisitsCount":116,"SumOfRubbleVolume":18265},{"ID":106219,"DefaultName":"حي ضاحية الملك فهد ( الدمام )","VisitsCount":38,"SumOfRubbleVolume":1290},{"ID":106220,"DefaultName":"حي الفلاح ( جدة )","VisitsCount":77,"SumOfRubbleVolume":15650},{"ID":106222,"DefaultName":"حي الصالحية ( مدينة الرياض )","VisitsCount":40,"SumOfRubbleVolume":10852},{"ID":106226,"DefaultName":"حي طيبة ( جدة )","VisitsCount":77,"SumOfRubbleVolume":59892},{"ID":106232,"DefaultName":"حي الربيع ( مدينة الرياض )","VisitsCount":105,"SumOfRubbleVolume":46674},{"ID":106239,"DefaultName":"الياسمين ( مدينة الرياض )","MapKey":"الياسمين","VisitsCount":460,"SumOfRubbleVolume":80122},{"ID":106241,"DefaultName":"حي الندى ( مدينة الرياض )","VisitsCount":126,"SumOfRubbleVolume":35061},{"ID":106250,"DefaultName":"السلي ( مركز الدلم )","MapKey":"السلي","VisitsCount":308,"SumOfRubbleVolume":163708},{"ID":106252,"DefaultName":"حي التعاون ( تبوك )","VisitsCount":36,"SumOfRubbleVolume":16580},{"ID":106253,"DefaultName":"حي غرناطة ( تبوك )","VisitsCount":58,"SumOfRubbleVolume":251403},{"ID":106255,"DefaultName":"طريق القريات بجانب المنطقة الصناعية  ( القريات )","VisitsCount":0,"SumOfRubbleVolume":0},{"ID":106257,"DefaultName":"حي الزهور ( جازان )","VisitsCount":142,"SumOfRubbleVolume":863254},{"ID":106274,"DefaultName":"البشائر ( جدة )","MapKey":"البشائر","VisitsCount":204,"SumOfRubbleVolume":723855},{"ID":106282,"DefaultName":"حي الريان ( تبوك )","VisitsCount":80,"SumOfRubbleVolume":3930},{"ID":106288,"DefaultName":"حي الاسكان ( عشيرة بالطائف )","VisitsCount":237,"SumOfRubbleVolume":9030},{"ID":106290,"DefaultName":"الزهراء ( القطيف )","MapKey":"الزهراء","VisitsCount":39,"SumOfRubbleVolume":4690},{"ID":106292,"DefaultName":"حي العارض ( مدينة الرياض )","VisitsCount":1851,"SumOfRubbleVolume":1786901},{"ID":106293,"DefaultName":"الملقا ( مدينة الرياض )","MapKey":"الملقا","VisitsCount":199,"SumOfRubbleVolume":25174},{"ID":106294,"DefaultName":"حي الشرفية ( جدة )","VisitsCount":39,"SumOfRubbleVolume":13023},{"ID":106298,"DefaultName":"حي البيان ( مدينة الرياض )","VisitsCount":566,"SumOfRubbleVolume":1102343},{"ID":106308,"DefaultName":"طريق الملك فيصل  ( تبوك )","VisitsCount":73,"SumOfRubbleVolume":27163},{"ID":106309,"DefaultName":"الصفا ( مدينة الرياض )","MapKey":"الصفا","VisitsCount":266,"SumOfRubbleVolume":499507},{"ID":106310,"DefaultName":"حي الربوة ( مدينة الرياض )","VisitsCount":180,"SumOfRubbleVolume":12885},{"ID":106312,"DefaultName":"الورود  ( عشيرة بالطائف )","MapKey":"الورود","VisitsCount":26,"SumOfRubbleVolume":848},{"ID":106316,"DefaultName":"حي المصيف ( مدينة الرياض )","VisitsCount":45,"SumOfRubbleVolume":20695},{"ID":106318,"DefaultName":"حي الصناعية النابية (  مركز سيهات )","VisitsCount":36,"SumOfRubbleVolume":158632},{"ID":106321,"DefaultName":"حي النهضة ( جدة )","VisitsCount":282,"SumOfRubbleVolume":25574},{"ID":106324,"DefaultName":"حي المنصورية ( مدينة الرياض )","VisitsCount":117,"SumOfRubbleVolume":94852},{"ID":106329,"DefaultName":"حي الحمراء ( جدة )","VisitsCount":190,"SumOfRubbleVolume":110864},{"ID":106333,"DefaultName":"حي الاندلس ( جدة )","VisitsCount":65,"SumOfRubbleVolume":15180},{"ID":106336,"DefaultName":"صناعية جرير ( مدينة الرياض )","VisitsCount":87,"SumOfRubbleVolume":120459},{"ID":106339,"DefaultName":"حي القيروان ( مدينة الرياض )","VisitsCount":226,"SumOfRubbleVolume":1293334},{"ID":106341,"DefaultName":"الندوة ( Biba )","MapKey":"الندوة","VisitsCount":76,"SumOfRubbleVolume":2290},{"ID":106344,"DefaultName":"حي النرجس ( مدينة الرياض )","VisitsCount":296,"SumOfRubbleVolume":770394}]'
+    />
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDffipE-zClh70C56bbtvm_aGKNesgM0Kk&callback=initMap"
+    ></script>
+    <script>
+      let newMap;
+
+      function initMap() {
+        newMap = new google.maps.Map(document.getElementById("map"), {
+          zoom: 9,
+          center: { lat: 24.7254554, lng: 47.1521891 },
+        });
+        // NOTE: This uses cross-domain XHR, and may not work on older browsers.
+        newMap.data.loadGeoJson(
+          "https://raw.githubusercontent.com/bahrawycodo/ryadhkmls/main/Merge.geojson"
+        );
+
+        newMap.data.setStyle({
+          fillColor: "#ddd",
+          strokeWeight: 1,
+          fillOpacity: 1,
+        });
+        // Load GeoJSON.
+        mapFirstload();
+        // Set the fill color to red when the feature is clicked.
+        // Stroke weight remains 3.
+        newMap.data.addListener("click", function (event) {
+          console.log(event.feature.getProperty("DISTRICTNO"));
+          newMap.data.overrideStyle(event.feature, { fillColor: "red" });
+        });
+        newMap.data.addListener("mouseover", function (event) {
+          newMap.data.revertStyle();
+          newMap.data.overrideStyle(event.feature, { strokeWeight: 1 });
+        });
+
+        newMap.data.addListener("mouseout", function (event) {
+          newMap.data.revertStyle();
+        });
+      }
+
+      window.initMap = initMap;
+      document
+        .getElementById("districts")
+        .addEventListener("change", function (e) {
+          newMap.data.setStyle(function (feature) {
+            var namex = feature.getProperty("name");
+            if (e.target.value === namex) {
+              return {
+                fillColor: "red",
+                strokeWeight: 1,
+              };
+            } else {
+              return {
+                fillColor: "#ddd",
+                strokeWeight: 1,
+              };
+            }
+          });
+        });
+      function mapFirstload() {
+        let jsonx = document.getElementById("divMapDistrictsDataJson").value;
+        let dataArr = JSON.parse(jsonx);
+
+        newMap.data.setStyle(function (feature) {
+          let bounds = new google.maps.LatLngBounds();
+          feature.g.forEachLatLng(function (elem) {
+            // console.log(elem.lat(), elem.lng());
+            bounds.extend(new google.maps.LatLng(elem.lat(), elem.lng()));
+          });
+          let myLatlng = bounds.getCenter();
+          var namex = feature.getProperty("NEIGHBORHA");
+          if (namex) {
+            addMarker(myLatlng, namex);
+          }
+          let mapx = dataArr.filter((p) => p.MapKey === namex);
+          const sum = dataArr.reduce((accumulator, object) => {
+            return accumulator + object.SumOfRubbleVolume;
+          }, 0);
+          let fillColor = "#ddd";
+          if (mapx.length) {
+            let persent = mapx[0].SumOfRubbleVolume / sum;
+            if (persent < 25) {
+              fillColor = "green";
+            } else if (persent >= 25 && persent < 50) {
+              fillColor = "yellow";
+            } else if (persent >= 50 && persent < 75) {
+              fillColor = "orange";
+            } else {
+              fillColor = "red";
+            }
+          }
+          return {
+            fillColor: fillColor,
+            strokeWeight: 1,
+            fillOpacity: 1,
+          };
+        });
+      }
+
+      // Adds a marker to the map.
+      function addMarker(location, text) {
+        let marker = new google.maps.Marker({
+          position: location,
+          label: {
+            text: text,
+            fontSize: "0",
+          },
+          icon: "E.png",
+          map: newMap,
+        });
+        newMap.addListener("zoom_changed", () => {
+          const zoom = newMap.getZoom();
+          let objLabel = {
+            text: marker.getLabel().text,
+            fontFamily: "Arial",
+            color: "#000",
+            fontSize: "0",
+          };
+          if (zoom > 10) {
+            objLabel.fontSize = zoom - 2 + "px";
+            marker.setLabel(objLabel);
+          } else {
+            objLabel.fontSize = "0px";
+            marker.setLabel(objLabel);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
